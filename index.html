@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Космический энтузиаст — ЛР №2</title>
+    
+    <!-- Основной стиль во внешнем файле -->
+    <link rel="stylesheet" href="./css/style.css">
+
+    <!-- Требование ТЗ: 1 правило во внутреннем блоке <style> (стили для аватара) -->
+    <style>
+        .avatar {
+            border: 3px solid var(--accent-color);
+            box-shadow: 0 0 15px rgba(255, 215, 0, 0.4);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Требование ТЗ: 1 элемент с inline-стилем (position: relative для контейнера звёзд) -->
+    <div class="stars-container" style="position: relative;">
+        
+        <!-- Мелкие div для анимации мерцания звёзд -->
+        <div class="star star-1"></div>
+        <div class="star star-2"></div>
+        <div class="star star-3"></div>
+        <div class="star star-4"></div>
+        <div class="star star-5"></div>
+
+        <header>
+            <h1>Александр Болдов</h1>
+            <p>Страница «О себе» — Космический энтузиаст и астроном-любитель</p>
+        </header>
+
+        <main>
+            <img class="avatar" src="./images/Avatar.jpg" alt="Портрет Александра Болдова" width="448" height="598">
+
+            <section class="skills-section">
+                <h2>Навыки</h2>
+                <ul>
+                    <li>Строительство космических аппаратов в Kerbal Space Program</li>
+                    <li>Анализ астрономических данных</li>
+                    <li>3D-моделирование орбит</li>
+                    <li>Обработка астрофотографий</li>
+                </ul>
+            </section>
+
+            <!-- Класс .projects-section для отслеживания :hover и управления звёздами -->
+            <section class="projects-section">
+                <h2>Проекты</h2>
+                <ol>
+                    <li>Ракета «ДальноЛёт-1»</li>
+                    <li>Миссия «Вояджер-1»</li>
+                    <li>Марсоход «Марс-2»</li>
+                    <li>Программа «Артемида»</li>
+                </ol>
+            </section>
+
+            <section class="contact-section">
+                <h2>Форма обратной связи</h2>
+                <form action="#">
+                    <label for="name">Имя:</label>
+                    <input type="text" id="name" name="name" placeholder="Введите ваше имя">
+
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" placeholder="Введите ваш email">
+
+                    <label for="message">Сообщение:</label>
+                    <textarea id="message" name="message" placeholder="Введите ваше сообщение"></textarea>
+
+                    <button type="submit">Отправить</button>
+                </form>
+            </section>
+
+            <aside>
+                <h3>Любимое созвездие</h3>
+                <p>Созвездие Ориона, в особенности звезда Бетельгейзе.</p>
+            </aside>
+
+            <footer>
+                <p>&copy; 2026 Александр Болдов</p>
+            </footer>
+        </main>
+
+    </div>
+
+</body>
+</html>

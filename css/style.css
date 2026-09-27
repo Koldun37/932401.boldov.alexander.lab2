@@ -1,0 +1,205 @@
+:root {
+    --primary-bg: #0b1021;      /* Тёмно-синий фон страницы */
+    --secondary-bg: #ffffff00;    /* Цвет блоков и полей */
+    --accent-color: #ffd700;    /* Золотистый акцент */
+    --text-color: #e0e6ed;      /* Светлый текст (Контрастность > 12:1 к фону) */
+    --text-muted: #a0aec0;      /* Вспомогательный текст */
+    --font-main: Arial, sans-serif;
+}
+
+body {
+    background-color: var(--primary-bg);
+    color: var(--text-color);
+    font-family: var(--font-main);
+    margin: 0;
+    padding: 20px;
+    overflow-x: hidden;
+}
+
+header, main, aside, footer, section {
+    border: 1px solid var(--accent-color);
+    padding: 15px;
+    margin: 15px 0;
+    border-radius: 5px;
+    background-color: var(--secondary-bg);
+    /* Пример relative позиционирования */
+    position: relative;
+    z-index: 2;
+}
+
+h1, h2, h3 {
+    color: var(--accent-color);
+}
+
+/* Пример static позиционирования */
+footer {
+    position: static;
+    text-align: center;
+}
+
+/* Псевдоэлементы ::before и ::after на контейнере для слоев дальних звёзд */
+.stars-container::before,
+.stars-container::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1;
+    transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.stars-container::before {
+    background-image: 
+        radial-gradient(2px 2px at 20px 30px, #ffffff, rgba(0,0,0,0)),
+        radial-gradient(2px 2px at 150px 180px, #ffd700, rgba(0,0,0,0)),
+        radial-gradient(1.5px 1.5px at 280px 80px, #ffffff, rgba(0,0,0,0)),
+        radial-gradient(2px 2px at 400px 320px, #ffffff, rgba(0,0,0,0));
+    background-repeat: repeat;
+    background-size: 500px 500px;
+    opacity: 0.8;
+    /* ПРАВКА 1: Анимация мерцания первого фонового слоя */
+    animation: twinkle-bg-1 3s ease-in-out infinite;
+}
+
+.stars-container::after {
+    background-image: 
+        radial-gradient(2px 2px at 90px 120px, #ffd700, rgba(0,0,0,0)),
+        radial-gradient(1px 1px at 220px 290px, #ffffff, rgba(0,0,0,0)),
+        radial-gradient(2px 2px at 350px 150px, #ffffff, rgba(0,0,0,0));
+    background-repeat: repeat;
+    background-size: 400px 400px;
+    opacity: 0.6;
+    /* ПРАВКА 1: Анимация мерцания второго фонового слоя (с задержкой) */
+    animation: twinkle-bg-2 4s ease-in-out infinite 1.5s;
+}
+
+/* Пример absolute позиционирования для отдельных мерцающих звёзд */
+.star {
+    position: absolute;
+    width: 3px;
+    height: 3px;
+    background-color: var(--accent-color);
+    border-radius: 50%;
+    box-shadow: 0 0 6px var(--accent-color);
+    z-index: 1;
+    pointer-events: none;
+    animation: twinkle 2s infinite ease-in-out alternate;
+    transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.star-1 { top: 50px; left: 10%; animation-delay: 0s; }
+.star-2 { top: 200px; left: 85%; animation-delay: 0.5s; }
+.star-3 { top: 450px; left: 25%; animation-delay: 1s; }
+.star-4 { top: 700px; left: 75%; animation-delay: 1.5s; }
+.star-5 { top: 900px; left: 45%; animation-delay: 0.8s; }
+
+/* Анимация мерцания для отдельных звёзд .star */
+@keyframes twinkle {
+    0% { opacity: 0.2; transform: scale(0.8); }
+    100% { opacity: 1; transform: scale(1.4); }
+}
+
+/* ПРАВКА 1: Анимации мерцания с микро-сдвигом для фоновых слоёв */
+@keyframes twinkle-bg-1 {
+    0%, 100% { 
+        opacity: 0.8; 
+        transform: scale(1);
+    }
+    50% { 
+        opacity: 0.25; 
+        transform: scale(0.99) translate(0.5px, 0.5px);
+    }
+}
+
+@keyframes twinkle-bg-2 {
+    0%, 100% { 
+        opacity: 0.6; 
+        transform: scale(1);
+    }
+    50% { 
+        opacity: 0.15; 
+        transform: scale(1.01) translate(-0.5px, -0.5px);
+    }
+}
+
+/* Эффект при :hover на секцию «Проекты»: «раздвигаем»/тушим звёзды */
+.stars-container:has(.projects-section:hover) .star,
+.stars-container:has(.projects-section:hover)::before,
+.stars-container:has(.projects-section:hover)::after {
+    opacity: 0.1 !important;
+    transform: scale(0.5);
+    /* ПРАВКА 2: Приостанавливаем анимацию, чтобы keyframes не перебивали тушение */
+    animation-play-state: paused;
+}
+
+/* :hover для секций */
+section:hover {
+    border-color: #ffffff;
+    box-shadow: 0 0 10px rgba(255, 215, 0, 0.2);
+    transition: all 0.3s ease;
+}
+
+/* Элементы формы и :focus */
+input, textarea {
+    display: block;
+    margin-bottom: 10px;
+    width: 100%;
+    max-width: 300px;
+    padding: 8px;
+    background-color: var(--primary-bg);
+    color: var(--text-color);
+    border: 1px solid var(--accent-color);
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+input:focus, textarea:focus {
+    outline: none;
+    border-color: #ffffff;
+    box-shadow: 0 0 8px var(--accent-color);
+}
+
+/* Кнопка и эффект «вспышки» при :active */
+button {
+    background-color: var(--accent-color);
+    color: var(--primary-bg);
+    font-weight: bold;
+    cursor: pointer;
+    max-width: 300px;
+    display: block;
+    margin-bottom: 10px;
+    width: 100%;
+    padding: 10px;
+    border: 1px solid var(--accent-color);
+    border-radius: 4px;
+    transition: background-color 0.2s, box-shadow 0.2s, transform 0.1s;
+}
+
+button:hover {
+    background-color: #e6c200;
+}
+
+/* :active — Эффект яркой «вспышки» */
+button:active {
+    background-color: #ffffff;
+    color: #000000;
+    box-shadow: 0 0 25px 8px #ffffff, 0 0 40px 15px var(--accent-color);
+    transform: scale(0.98);
+}
+
+/* Ссылки и псевдокласс :visited */
+.space-link {
+    color: var(--accent-color);
+    text-decoration: underline;
+}
+
+.space-link:hover {
+    color: #ffffff;
+}
+
+.space-link:visited {
+    color: #d4af37; /* Более тёмный золотой для посещённой ссылки */
+}
